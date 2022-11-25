@@ -8,6 +8,8 @@ import (
     "math"
     "os"
     "log"
+    "reflect"
+    "strconv"
 )
 
 func main() {
@@ -33,9 +35,18 @@ func main() {
             continue
         }
 
-        // Convert Epoch time to a human readable UTC format
-        timestamp := data["timestamp"].(float64)
-        s, ms := math.Modf(timestamp)
+        timestamp := data["timestamp"]
+
+        // If epoch timestamp is a string, convert to float64 first
+        if reflect.TypeOf(timestamp).String() == "string" {
+            timestamp, err = strconv.ParseFloat(timestamp.(string), 64) 
+            if err != nil {
+                log.Fatal(err)
+            }
+        }
+
+        // Convert epoch time to a human readable UTC format
+        s, ms := math.Modf(timestamp.(float64))
         time := time.Unix(int64(s), 0).UTC()
         utcTime := fmt.Sprintf("%d-%02d-%02dT%02d:%02d:%02d.%d", time.Year(), time.Month(), time.Day(), time.Hour(), time.Minute(), time.Second(), int64(math.Round(ms*1e6)))
 
