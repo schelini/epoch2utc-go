@@ -29,7 +29,8 @@ func main() {
         // Unmarshal JSON data into the map
         err := json.Unmarshal([]byte(scanner.Text()), &data)
         if err != nil {
-            log.Fatal(err)
+            log.Println(err)
+            continue
         }
 
         // Convert Epoch time to a human readable UTC format
