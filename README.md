@@ -1,5 +1,5 @@
 # Convert epoch timestamps to UTC
 
-Build: go build -o epoch2utc
+Build: ```go build -o epoch2utc```
 
-Usage: ./epoch2utc [INPUT_FILE] > [OUTPUT_FILE]
+Usage: ```./epoch2utc [INPUT_FILE] > [OUTPUT_FILE]```
